@@ -13,6 +13,42 @@
            Upon submitting the form, you should simply print the Value of the Form to the Console.
            Optionally, display it in your template.
       -->
+      <div class="container">
+        <div class="row">
+          <form (ngSubmit)="onSubmit()" #f="ngForm">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" class="form-control" ngModel name="email" required #email="ngModel">
+              <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email</span>
+            </div>
+            <div class="form-group">
+              <label for="subscription">Subscriptions</label>
+              <select name="subscription" id="subscription" class="form-control" [ngModel]="defaultSubscription"
+                #subscription="ngModel">
+                <option value="basic">Basic</option>
+                <option value="advanced">Advanced</option>
+                <option value="pro">Pro</option>
+              </select>
+            </div>
+            <span class="help-block" *ngIf="!subscription.valid && subscription.touched">Please enter a valid
+              subscription</span>
+            <div class="form-group">
+              <input type="password" name="password" id="password" ngModel name="password" required #password="ngModel">
+            </div>
+            <span class="help-block" *ngIf="!password.valid&&password.touched">Please enter a valid password</span>
+            <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
+          </form>
+          <span class="help-block" *ngIf="!f.valid&&f.touched">Form was touched and is invalid</span>
+        </div>
+        <div class="row" *ngIf="submitted">
+          <div class="col-xs-12">
+            <h3>Your data</h3>
+            <p>email: {{formData.email}}</p>
+            <p>subscription: {{formData.subscription}}</p>
+            <p>password: {{formData.password}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
